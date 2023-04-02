@@ -51,6 +51,7 @@ contextBridge.exposeInMainWorld('api_todos', {
         await ipcRenderer.invoke('create-user', values)
     },
     async fetchUsers(values) {
-        await ipcRenderer.invoke('fetch-users', values)
+        const result = await ipcRenderer.invoke('fetch-users', values)
+        return result
     }
 })

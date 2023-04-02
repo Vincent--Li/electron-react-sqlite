@@ -39,7 +39,7 @@ class Home extends Component {
         try {
             const { getTodos } = this.props
             this.setState({ isLoading: true })
-            await getTodos()
+            // await getTodos()
             this.setState({
                 isLoading: false,
             })

@@ -4,8 +4,8 @@ const sqlite = require('../../../services/sqlite')
 // Because it is used inside init function.
 
 const method = async (values) => {
-    const TodoModel = sqlite.getModel('User')
-    const result = await TodoModel.handleFetchUsers(values)
+    const UserModel = sqlite.getModel('User')
+    const result = await UserModel.handleFetchUsers(values)
     return result
 }
 

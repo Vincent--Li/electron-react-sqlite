@@ -17,7 +17,7 @@ const initialData = [
 ];
 
 function UserInfoList() {
-  const [users, setUsers] = useState(initialData);
+  const [users, setUsers] = useState([]);
   const [filter, setFilter] = useState({});
   const [editingUser, setEditingUser] = useState(null);
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
@@ -33,28 +33,24 @@ function UserInfoList() {
     {
       title: "Username",
       dataIndex: "username",
-      key: "username",
+      key: "id",
       render: (text, record) => <a onClick={() => handleUserClick(record)}>{text}</a>,
 
     },
     {
       title: "Age",
       dataIndex: "age",
-      key: "age",
     },
     {
       title: "Gender",
       dataIndex: "gender",
-      key: "gender",
     },
     {
       title: "UserCode",
       dataIndex: "usercode",
-      key: "usercode",
     },
     {
       title: "Action",
-      key: "action",
       render: (text, record) => (
         <span>
           <a onClick={() => handleShowEditModal(record)}>Edit</a>
@@ -76,7 +72,10 @@ function UserInfoList() {
         pageSize,
         pageNumber,
       });
-      setUsers([...initialData, ...data]);
+      console.log("init fetchData", data);
+      if(data) {
+        setUsers([...data]);
+      }
     }
     fetchAndSetUsers();
   }, [filter]);
@@ -102,6 +101,7 @@ function UserInfoList() {
       .validateFields()
       .then((values) => {
         // Send a POST request to your API to create a new user
+        console.log("values to create", values)
         api_todos.createUser(values).then(async () => {
           // Reset the form fields and close the modal
           form.resetFields();
@@ -112,7 +112,10 @@ function UserInfoList() {
             pageSize,
             pageNumber,
           });
-          setUsers([...initialData, ...data]);
+          console.log("fetchsUsers datais ", data)
+          if(data) {
+            setUsers([...data]);
+          }
         });
       })
       .catch((error) => {
@@ -157,9 +160,9 @@ function UserInfoList() {
           </Form.Item>
           <Form.Item name="sex" label="Sex" rules={[{ required: true }]}>
             <Select>
-              <Option value="M">Male</Option>
-              <Option value="F">Female</Option>
-              <Option value="O">Other</Option>
+              <Select.Option value="M">Male</Select.Option>
+              <Select.Option value="F">Female</Select.Option>
+              <Select.Option value="O">Other</Select.Option>
             </Select>
           </Form.Item>
         </Form>

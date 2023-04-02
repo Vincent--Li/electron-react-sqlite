@@ -99,30 +99,6 @@ const handleDeleteTodos = (conn, Model) => async () => {
     return res[0]
 }
 
-// method: add single todo
-const handleCreateUser = (conn, Model) => async (values) => {
-    // add todo query: {username: 'test', age: '1', sex: 'male', usercode: '123'}
-    const q = 'INSERT INTO users(id, username, age, sex, usercode) VALUES(rowid, :username, :age, :sex, :usercode)'
-
-    const res = await conn.query(q, {
-        replacements: {
-            ...values
-        },
-    })
-    return res[0]
-}
-
-// method: get all existing users, by paging
-const handleFetchUsers = (conn, Model) => async (values) => {
-    // query:
-    const q = "SELECT * FROM users WHERE username like '%:username%' ORDER BY id DESC LIMIT :limit OFFSET :offset;"
-    const res = await conn.query(q, {
-        ...values
-    })
-    return res[0]
-}
-
-
 const options = {
     tableName,
     freezeTableName: true,
@@ -140,7 +116,6 @@ const init = (conn) => {
     Model.handleDeleteTodo = handleDeleteTodo(conn, Model)
     Model.handleGetTodos = handleGetTodos(conn, Model)
     Model.handleDeleteTodos = handleDeleteTodos(conn, Model)
-    Model.handleFetchUsers = handleFetchUsers(conn, Model)
     return Model.sync()
 }
 
