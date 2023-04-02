@@ -24,7 +24,6 @@ function UserInfoList() {
     {
       title: "Username",
       dataIndex: "username",
-      key: "id",
       render: (text, record) => <a onClick={() => handleUserClick(record)}>{text}</a>,
 
     },
@@ -125,6 +124,8 @@ function UserInfoList() {
     console.log("total numer ", total)
     if(data) {
       setUsers([...data]);
+    }
+    if(total && total[0]){
       setTotal(total[0].count);
     }
   }
@@ -178,6 +179,7 @@ function UserInfoList() {
       <Table
         columns={columns}
         dataSource={users}
+        rowKey= {record => record.id}
         pagination={{
           pageSize: pageSize,
           showQuickJumper: true,

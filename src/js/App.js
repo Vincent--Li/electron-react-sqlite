@@ -1,16 +1,16 @@
 import React from 'react'
-import { Switch, Route } from 'react-router-dom'
+import { Route, HashRouter } from 'react-router-dom'
 
 import Home from './pages/Home/Home'
-import BomPage from './pages/Home/components/BomPage'
+import BomPage from './pages/Home/BomPage'
 
 export default () => {
     return (
         <>
-            <Switch>
-                <Route path="/" component={Home} />
-                <Route exact path="/bom/:id" component={BomPage} />
-            </Switch>
+            <HashRouter>
+                <Route exact path="/" component={Home} />
+                <Route path="/bom/:id" component={BomPage} />
+            </HashRouter>
         </>
     )
 }
