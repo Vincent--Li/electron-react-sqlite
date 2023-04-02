@@ -22,6 +22,7 @@ function EditUserModal({ visible, onCancel, user, onSave }) {
       title="Edit User"
       onCancel={onCancel}
       onOk={handleSave}
+      forceRender 
     >
       <Form form={form} layout="vertical">
         <Form.Item

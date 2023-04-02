@@ -154,6 +154,7 @@ function UserInfoList() {
         open={isModalVisible}
         onCancel={() => setIsModalVisible(false)}
         onOk={handleCreateUser}
+        forceRender 
       >
         <Form form={form} layout="vertical">
           <Form.Item

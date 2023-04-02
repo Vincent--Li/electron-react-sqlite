@@ -53,6 +53,8 @@ app.whenReady()
         createWindow();
 
         // Initialize React & Redux devtools for dev environment
+        //  require('electron-react-devtools').install()
+
         if (isDev) {
             installExtension(REACT_DEVELOPER_TOOLS)
               .then(name => console.log(`Added Extension:  ${name}`))

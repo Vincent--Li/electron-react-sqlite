@@ -75,6 +75,7 @@
     "@babel/core": "^7.12.10",
     "electron": "^8.5.0",
     "electron-builder": "^22.9.1",
+    "electron-react-devtools": "^0.5.3",
     "electron-reload": "^1.5.0",
     "react-styleguidist": "^11.1.5",
     "url-loader": "^4.1.1",
