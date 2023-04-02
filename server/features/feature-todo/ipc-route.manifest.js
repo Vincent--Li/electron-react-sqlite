@@ -32,6 +32,15 @@ module.exports = {
         {
             name: 'delete-todos',
             handler: require('./routes/delete-todos'),
-        }
+        },
+        {
+            name: 'create-user',
+            handler: require('./routes/create-user'),
+        },
+        {
+            name: 'fetch-users',
+            handler: require('./routes/fetch-users'),
+        },
+
     ]
 }

@@ -46,5 +46,11 @@ contextBridge.exposeInMainWorld('api_todos', {
     },
     async deleteTodos() {
         await ipcRenderer.invoke('delete-todos')
+    },
+    async createUser(values) {
+        await ipcRenderer.invoke('create-user', values)
+    },
+    async fetchUsers(values) {
+        await ipcRenderer.invoke('fetch-users', values)
     }
 })

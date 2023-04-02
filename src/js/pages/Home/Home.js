@@ -14,7 +14,7 @@ import {
 } from '../../features/feature-todo/services/todo.service'
 
 
-import TodoPageUI from './components/TodoPageUI'
+import UserInfoList from './components/UserInfoList'
 // import DataOptionsTab from '../../../components/DataOptionsTab'
 
 const mapState = ({ todos }) => ({
@@ -72,21 +72,22 @@ class Home extends Component {
         return (
             <div style={{ padding: 15 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
-                    <h2>Todo list</h2>
+                    <h2>用户列表:</h2>
                     {/* <DataOptionsTab
                         onExport={this.handleExport}
                         onImport={this.tryResponder}
                     /> */}
                 </div>
                 {(this.state.testing) ? <p>{this.state.testing}</p> : null}
-                <TodoPageUI
+                {/* <TodoPageUI
                     list={list}
                     onOpen={() => console.log('hi')}
                     onAddTodo={addTodo}
                     onGetTodo={getTodo}
                     onUpdateTodo={updateTodo}
                     onDeleteTodo={deleteTodo}
-                />
+                /> */}
+                <UserInfoList />
             </div>
         )
     }

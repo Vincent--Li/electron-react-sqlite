@@ -8,5 +8,6 @@ module.exports = {
     deleteTodo: 'delete-todo',
     getTodos: 'get-todos',
     deleteTodos: 'delete-todos',
+    fetchUsers: 'fetch-users',
 }
 
