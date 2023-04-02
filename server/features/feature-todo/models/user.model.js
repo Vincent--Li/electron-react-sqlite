@@ -54,6 +54,22 @@ const handleFetchUsers = (conn, Model) => async (values) => {
   return res[0]
 }
 
+// method: get all existing users, by paging
+const handleFetchUsersCount = (conn, Model) => async (values) => {
+  // query:
+  const q = `SELECT count(*) as count FROM users 
+            ${values.username ? ("WHERE username like '%" + values.username + "%'" ): ""} ORDER BY id DESC LIMIT :limit OFFSET :offset;`
+  console.log("fetchUsername", values)
+  const res = await conn.query(q, {
+    replacements: {
+      username: values.username,
+      limit: values.pageSize,
+      offset: (values.pageNumber - 1) * values.pageSize,
+    }
+  })
+  return res[0]
+}
+
 
 const options = {
   tableName,
@@ -68,6 +84,8 @@ const init = (conn) => {
   // export the model methods here
   Model.handleFetchUsers = handleFetchUsers(conn, Model)
   Model.handleCreateUser = handleCreateUser(conn, Model)
+  Model.handleFetchUsersCount = handleFetchUsersCount(conn, Model)
+
   return Model.sync()
 }
 

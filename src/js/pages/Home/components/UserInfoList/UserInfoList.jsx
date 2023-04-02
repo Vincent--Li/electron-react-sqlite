@@ -6,16 +6,6 @@ import { useHistory } from "react-router-dom";
 
 const { Search } = Input;
 
-const initialData = [
-  {
-    key: "0",
-    username: "John Doe",
-    age: 30,
-    gender: "Male",
-    usercode: "JD001",
-  },
-];
-
 function UserInfoList() {
   const [users, setUsers] = useState([]);
   const [filter, setFilter] = useState({});
@@ -26,6 +16,7 @@ function UserInfoList() {
 
   const [form] = Form.useForm();
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [total, setTotal] = useState(0);
 
   const history = useHistory();
 
@@ -67,15 +58,11 @@ function UserInfoList() {
 
   useEffect(() => {
     async function fetchAndSetUsers() {
-      const data = await api_todos.fetchUsers({
+      fetchUserByCondition({
         username: filter.username,
-        pageSize,
         pageNumber,
-      });
-      console.log("init fetchData", data);
-      if(data) {
-        setUsers([...data]);
-      }
+        pageSize,
+      })
     }
     fetchAndSetUsers();
   }, [filter]);
@@ -106,22 +93,42 @@ function UserInfoList() {
           // Reset the form fields and close the modal
           form.resetFields();
           setIsModalVisible(false);
-          // Reload the user list to show the new user
-          const data = await api_todos.fetchUsers({
+          await fetchUserByCondition({ 
             username: filter.username,
-            pageSize,
             pageNumber,
-          });
-          console.log("fetchsUsers datais ", data)
-          if(data) {
-            setUsers([...data]);
-          }
+            pageSize 
+          })
         });
       })
       .catch((error) => {
         console.error("Failed to create user:", error);
       });
   };
+
+  const handlePageChange = async (page) => {
+    setPageNumber(page)
+    await fetchUserByCondition({ pageNumber: page, pageSize })
+  }
+
+  const fetchUserByCondition = async (condition) => {
+    // Reload the user list to show the new user
+    const data = await api_todos.fetchUsers({
+      username: condition.username,
+      pageSize: condition.pageSize,
+      pageNumber: condition.pageNumber,
+    });
+    const total = await api_todos.fetchUsersCount({
+      username: filter.username,
+      pageSize,
+      pageNumber,
+    })
+    console.log("total numer ", total)
+    if(data) {
+      setUsers([...data]);
+      setTotal(total[0].count);
+    }
+  }
+
 
   return (
     <div>
@@ -177,6 +184,8 @@ function UserInfoList() {
           showSizeChanger: true,
           defaultPageSize: pageSize,
           pageSizeOptions: ["10"],
+          total: total,
+          onChange: handlePageChange,
         }}
       />
     </div>

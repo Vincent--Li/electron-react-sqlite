@@ -41,6 +41,10 @@ module.exports = {
             name: 'fetch-users',
             handler: require('./routes/fetch-users'),
         },
+        {
+            name: 'fetch-users-count',
+            handler: require('./routes/fetch-users-count'),
+        },
 
     ]
 }
